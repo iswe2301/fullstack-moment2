@@ -1,0 +1,17 @@
+{
+  "name": "moment-2.2",
+  "version": "1.0.0",
+  "description": "Fullstack-utveckling med ramverk - Moment 2.2 - Skapa REST-webbtjänst med valfritt Backend-ramverk",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "Isa Westling",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^21.3.12",
+    "dotenv": "^16.4.5",
+    "mongoose": "^8.8.2",
+    "nodemon": "^3.1.7"
+  }
+}
