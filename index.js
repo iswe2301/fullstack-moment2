@@ -11,7 +11,10 @@ const init = async () => {
     // Skapa en ny server och använd port och host från .env eller standardvärden
     const server = Hapi.server({
         port: process.env.PORT || 5000,
-        host: process.env.HOST || "localhost"
+        host: process.env.HOST || "localhost",
+        routes: {
+            cors: ["*"] // Tillåt alla CORS-anrop
+        }
     });
 
     // Anslut till MongoDB
