@@ -26,7 +26,8 @@ const travelSchema = Mongoose.Schema({
         // Validera att betyget är ett heltal mellan 1 och 10
         validate: {
             validator: function (value) {
-                return Number.isInteger(value) && value >= 1 && value <= 10;
+                // Kör valideringen endast om värdet inte är undefined eller null
+                return value === undefined || (Number.isInteger(value) && value >= 1 && value <= 10);
             },
             message: "Betyget måste vara ett heltal mellan 1 och 10"
         }
@@ -41,7 +42,8 @@ const travelSchema = Mongoose.Schema({
         validate: {
             // Validera att datumet är ett giltigt datum och inte i framtiden
             validator: function (value) {
-                return !isNaN(Date.parse(value)) && value <= Date.now();
+                // Kör valideringen endast om värdet inte är undefined eller null
+                return value === undefined || (!isNaN(Date.parse(value)) && value <= Date.now());
             },
             message: "Du måste ange ett giltigt datum som inte är i framtiden"
         }
