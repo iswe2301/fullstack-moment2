@@ -13,7 +13,9 @@ const init = async () => {
         port: process.env.PORT || 5000,
         host: process.env.HOST || "localhost",
         routes: {
-            cors: ["*"] // Tillåt alla CORS-anrop
+            cors: {
+                origin: ["*"] // Tillåt alla CORS-anrop
+            }
         }
     });
 
