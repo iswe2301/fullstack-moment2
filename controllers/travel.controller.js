@@ -81,7 +81,7 @@ exports.updateTravel = async (request, h) => {
         const updatedTravel = await Travel.findByIdAndUpdate(
             request.params.id,
             request.payload,
-            { new: true }
+            { new: true, runValidators: true } // Kör validering 
         );
         // Returnera den uppdaterade resan med statuskod 200
         return h.response({
@@ -89,7 +89,20 @@ exports.updateTravel = async (request, h) => {
             travel: updatedTravel
         }).code(200);
     } catch (error) {
-        // Fånga upp eventuella fel
+        // Fånga upp eventuella valideringsfel
+        if (error.name === "ValidationError") {
+            const errors = {};
+            // Loopa igenom valideringsfelen och lägg till dem i errors-objektet
+            Object.keys(error.errors).forEach((key) => {
+                errors[key] = error.errors[key].message;
+            });
+            // Returnera felmeddelanden med statuskod 400
+            return h.response({
+                message: "Fel vid uppdatering av resa",
+                errors: errors
+            }).code(400);
+        }
+        // Fånga upp eventuella andra fel
         console.log("Fel vid uppdatering av resa: ", error);
         return h.response("Något gick fel vid uppdatering av resa").code(500);
     }
